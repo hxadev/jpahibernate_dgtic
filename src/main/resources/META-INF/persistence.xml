@@ -5,9 +5,6 @@
              version="3.1">
     <persistence-unit name="bookstore-pu" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-
-        <!-- Add your entity classes (fully-qualified) -->
-
         <properties>
             <!-- JDBC connection (replace with your values) -->
             <property name="jakarta.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
