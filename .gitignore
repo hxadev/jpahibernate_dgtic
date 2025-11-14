@@ -1,0 +1,58 @@
+# Java compiled files
+*.class
+
+# Logs and temp
+*.log
+*.tmp
+tmp/
+temp/
+
+# Build output
+/target/
+/out/
+/build/
+
+# Maven
+dependency-reduced-pom.xml
+release.properties
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+buildNumber.properties
+
+# IDEs
+/.idea/
+/*.iml
+*.iws
+/.classpath
+/.project
+/.settings/
+/nbproject/private/
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.h2.db
+*.derby
+*.mv.db
+
+# Archives and packages
+*.jar
+*.war
+*.ear
+
+# Environment / secrets
+.env
+*.secret
+credentials.properties
+
+# Misc
+coverage/
+hs_err_pid*
+dependency-reduced-pom.xml
