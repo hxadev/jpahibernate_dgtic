@@ -1,4 +1,4 @@
-package com.dgtic.unam.client;
+package com.dgtic.unam.service;
 
 import com.dgtic.unam.model.Book;
 import com.dgtic.unam.dao.BookstoreDAO;
@@ -8,10 +8,10 @@ import java.util.List;
 /**
  * Cliente para interactuar con la librería a través del DAO.
  */
-public class BookstoreClient {
+public class BookstoreService {
     private BookstoreDAO bookstoreDAO;
 
-    public BookstoreClient(BookstoreDAO bookstoreDAO) {
+    public BookstoreService(BookstoreDAO bookstoreDAO) {
         this.bookstoreDAO = bookstoreDAO;
     }
 
