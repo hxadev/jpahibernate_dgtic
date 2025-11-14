@@ -1,156 +1,77 @@
 package com.dgtic.unam.dao;
 
 import com.dgtic.unam.model.Book;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Persistence;
+import org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Data Access Object (DAO) for Bookstore operations.
  */
 public class BookstoreDAO {
-    private Connection connection;
+    // No Needed Connection as attribute
+    //private Connection connection;
 
-    public BookstoreDAO(Connection connection) {
-        this.connection = connection;
-    }
+    /**
+     * EntityManagerFactory and EntityManager for JPA operations.
+     */
+    private EntityManagerFactory emf;
+    private EntityManager em;
 
     public BookstoreDAO(){
-        connection = null;
+        /**
+         * Initialize the EntityManagerFactory and EntityManager for JPA operations.
+         */
+        this.emf = Persistence.createEntityManagerFactory("bookstore-pu");
+        this.em = emf.createEntityManager();
     }
 
     public void insertBook(Book book) {
         try{
-            // 1. Load Driver
-            Class.forName("org.mariadb.jdbc.Driver");
-            String DBNAME = "bookstore";
-            String URL = "jdbc:mariadb://localhost:3307/"+DBNAME;
-            String USER = "dgtic";
-            String PASS = "dgtic1234";
-
-            // 2. Create Connection
-            connection = java.sql.DriverManager.getConnection(URL, USER, PASS);
-
-            // 3. Create Statement
-            PreparedStatement stmt=connection.prepareStatement("INSERT INTO BOOK(isbn, book_name, publisher_code) VALUES(?,?,?)");
-            stmt.setString(1, book.getIsbn());
-            stmt.setString(2, book.getBookName());
-            stmt.setString(3, book.getPublisherCode());
-
-            // 4. Execute Statement(Query)
-            stmt.executeUpdate();
-
-            // 5. Close Statement
-            stmt.close();
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            em.getTransaction().begin();
+            em.persist(book);
+            em.getTransaction().commit();
+        }catch (RuntimeException ex){
+            em.getTransaction().rollback();
         }
     }
 
     public List<Book> findAllBooks() {
-        // Implementation for retrieving all books from the database
-        List<Book> books = new ArrayList<Book>();
         try{
-            // 1. Load Driver
-            Class.forName("org.mariadb.jdbc.Driver");
-
-            // 2. Create Connection
-            connection = this.buildConnection();
-
-            // 3. Create Statement(Query)
-            var sql="SELECT isbn, book_name, publisher_code FROM BOOK";
-            try(PreparedStatement stmt=connection.prepareStatement(sql)){
-                // 4. Execute Statement(Query)
-                ResultSet rs=stmt.executeQuery();
-
-                // 5. Process ResultSet
-                while(rs.next()){
-                    String isbn=rs.getString("isbn");
-                    String bookName=rs.getString("book_name");
-                    String publisherCode=rs.getString("publisher_code");
-                    books.add(new Book(isbn,bookName,publisherCode));
-                }
-            } // 6. Close Statement
-
-
+            List<Book> books=em.createQuery("SELECT b FROM Book b", Book.class).getResultList();
             return books;
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        }catch(NoResultException ex){
+            return Collections.emptyList();
         }
-        catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return books;
     }
 
     public Book findBookByIsbn(String isbn) {
-        // Implementation for retrieving a book by its ISBN from the database
-        Book book = null;
         try{
-            Class.forName("org.mariadb.jdbc.Driver");
-            connection = this.buildConnection();
-
-            var sql="SELECT isbn, book_name, publisher_code FROM BOOK WHERE isbn = ?";
-            try(PreparedStatement stmt=connection.prepareStatement(sql)){
-                stmt.setString(1, isbn);
-                ResultSet rs=stmt.executeQuery();
-
-                if(rs.next()){
-                    String bookName=rs.getString("book_name");
-                    String publisherCode=rs.getString("publisher_code");
-                    book = new Book(isbn,bookName,publisherCode);
-                }
-            }
+            Book book=em.find(Book.class, isbn);
             return book;
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        }catch(NoResultException ex){
+            return null;
         }
-        catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return book;
     }
 
-    private Connection buildConnection() throws SQLException {
+    /**
+     *  Not needed method to build connection
+     * private Connection buildConnection() throws SQLException {
         String DBNAME = "bookstore";
         String URL = "jdbc:mariadb://localhost:3307/"+DBNAME;
         String USER = "dgtic";
         String PASS = "dgtic1234";
         return java.sql.DriverManager.getConnection(URL, USER, PASS);
-    }
+    }**/
 
 }

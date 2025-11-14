@@ -8,7 +8,7 @@ tmp/
 temp/
 
 # Build output
-/target/
+/target/*
 /out/
 /build/
 

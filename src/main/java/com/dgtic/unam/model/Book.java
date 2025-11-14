@@ -2,11 +2,26 @@ package com.dgtic.unam.model;
 
 /**
  * Modelo de datos para un libro en la librería.
- * POJO con atributos isbn, bookName y publisherCode.
+ * POJO Entity con atributos isbn, bookName y publisherCode.
  */
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+/**
+ * Entity class representing a Book in the bookstore.
+ */
+@Entity
+@Table(name = "BOOK")
 public class Book {
+    @Id
+    @Column(name = "ISBN")
     private String isbn;
+    @Column(name = "BOOK_NAME")
     private String bookName;
+    @Column(name = "PUBLISHER_CODE")
     private String publisherCode;
     public Book() {
     }
