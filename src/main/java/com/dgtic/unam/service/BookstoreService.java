@@ -1,6 +1,4 @@
-package com.dgtic.unam.dao;
-
-import com.dgtic.unam.model.Book;
+package com.dgtic.unam.service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,14 +10,14 @@ import java.util.List;
 /**
  * Data Access Object (DAO) for Bookstore operations.
  */
-public class BookstoreDAO {
+public class BookstoreService {
     private Connection connection;
 
-    public BookstoreDAO(Connection connection) {
+    public BookstoreService(Connection connection) {
         this.connection = connection;
     }
 
-    public BookstoreDAO(){
+    public BookstoreService(){
         connection = null;
     }
 

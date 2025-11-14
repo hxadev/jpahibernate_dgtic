@@ -1,4 +1,4 @@
-package com.dgtic.unam.model;
+package com.dgtic.unam.service;
 
 /**
  * Modelo de datos para un libro en la librería.

@@ -1,8 +1,7 @@
 package com.dgtic.unam;
 
-import com.dgtic.unam.client.BookstoreClient;
-import com.dgtic.unam.model.Book;
-import com.dgtic.unam.dao.BookstoreDAO;
+import com.dgtic.unam.service.Book;
+import com.dgtic.unam.service.BookstoreService;
 
 import java.util.List;
 /**
@@ -10,18 +9,17 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
-        BookstoreDAO bookstoreDAO = new BookstoreDAO();
-        BookstoreClient client = new BookstoreClient(bookstoreDAO);
+        BookstoreService service = new BookstoreService();
 
         // Step Get all Books
-        List<Book> books= client.findAllBooks();
+        List<Book> books= service.findAllBooks();
         for (Book book : books) {
             System.out.println("Book: " + book.getBookName() + ", ISBN: " + book.getIsbn() + ", Publisher Code: " + book.getPublisherCode());
         }
 
         // Step Find a Book by ISBN
         String searchIsbn = "ISBN-002";
-        Book foundBook = client.findBookByIsbn(searchIsbn);
+        Book foundBook = service.findBookByIsbn(searchIsbn);
         if (foundBook != null) {
             System.out.println("Found Book: " + foundBook.getBookName() + ", ISBN: " + foundBook.getIsbn() + ", Publisher Code: " + foundBook.getPublisherCode());
         } else {
@@ -30,7 +28,7 @@ public class Main {
 
         // Step Insert a new Book
         //Book newBook = new Book("ISBN-005", "New Book Title", "P001");
-        //client.insertBook(newBook);
+        //service.insertBook(newBook);
 
 
 
