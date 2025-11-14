@@ -23,7 +23,7 @@
         <property name="hibernate.format_sql">true</property>
 
         <!-- Entity mappings (XML or annotations) -->
-        <mapping class="com.dgtic.unam.model.Book"/>
+        <mapping resource="mapping/book.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>

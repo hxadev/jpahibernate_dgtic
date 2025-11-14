@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <!--  Class Name -> Table Name   -->
+    <class name="com.dgtic.unam.model.Book" table="BOOK">
+        <!--     ID Name Entity -> Id Table    -->
+        <id name="isbn" column="ISBN" type="string">
+            <generator class="assigned"/>
+        </id>
+
+        <!--    Properties    -->
+        <property name="bookName" column="BOOK_NAME" type="string" not-null="true"/>
+        <property name="publisherCode" column="PUBLISHER_CODE" type="string" not-null="true"/>
+    </class>
+</hibernate-mapping>
