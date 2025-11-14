@@ -1,6 +1,6 @@
 package com.dgtic.unam;
 
-import com.dgtic.unam.client.BookstoreClient;
+import com.dgtic.unam.service.BookstoreService;
 import com.dgtic.unam.model.Book;
 import com.dgtic.unam.dao.BookstoreDAO;
 
@@ -11,7 +11,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         BookstoreDAO bookstoreDAO = new BookstoreDAO();
-        BookstoreClient client = new BookstoreClient(bookstoreDAO);
+        BookstoreService client = new BookstoreService(bookstoreDAO);
 
         // Step Get all Books
         List<Book> books= client.findAllBooks();
@@ -20,7 +20,7 @@ public class Main {
         }
 
         // Step Find a Book by ISBN
-        String searchIsbn = "ISBN-002";
+        String searchIsbn = "ISBN-003";
         Book foundBook = client.findBookByIsbn(searchIsbn);
         if (foundBook != null) {
             System.out.println("Found Book: " + foundBook.getBookName() + ", ISBN: " + foundBook.getIsbn() + ", Publisher Code: " + foundBook.getPublisherCode());
