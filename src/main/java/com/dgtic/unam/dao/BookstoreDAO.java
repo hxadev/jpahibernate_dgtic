@@ -5,6 +5,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Persistence;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl;
 
 import java.sql.Connection;
@@ -16,50 +19,49 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Data Access Object (DAO) for Bookstore operations.
+ * Data Access Object (DAO) for Bookstore operations Hibernate and JPA.
  */
 public class BookstoreDAO {
     // No Needed Connection as attribute
     //private Connection connection;
 
-    /**
-     * EntityManagerFactory and EntityManager for JPA operations.
-     */
-    private EntityManagerFactory emf;
-    private EntityManager em;
+    private SessionFactory sessionFactory;
 
-    public BookstoreDAO(){
+    public BookstoreDAO() {
         /**
-         * Initialize the EntityManagerFactory and EntityManager for JPA operations.
+         * Initialize the SessionFactory for Hibernate operations.
          */
-        this.emf = Persistence.createEntityManagerFactory("bookstore-pu");
-        this.em = emf.createEntityManager();
+        this.sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     }
 
     public void insertBook(Book book) {
-        try{
-            em.getTransaction().begin();
-            em.persist(book);
-            em.getTransaction().commit();
-        }catch (RuntimeException ex){
-            em.getTransaction().rollback();
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.save(book);
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
     public List<Book> findAllBooks() {
-        try{
-            List<Book> books=em.createQuery("SELECT b FROM Book b", Book.class).getResultList();
+        try (Session session = sessionFactory.openSession()) {
+            List<Book> books = session.createQuery("FROM Book", Book.class).list();
+            session.close();
             return books;
-        }catch(NoResultException ex){
+        } catch (Exception ex) {
+            ex.printStackTrace();
             return Collections.emptyList();
         }
     }
 
     public Book findBookByIsbn(String isbn) {
-        try{
-            Book book=em.find(Book.class, isbn);
+        try (Session session = sessionFactory.openSession()) {
+            Book book = session.get(Book.class, isbn);
+            session.close();
             return book;
-        }catch(NoResultException ex){
+        } catch (Exception ex) {
+            ex.printStackTrace();
             return null;
         }
     }
@@ -67,11 +69,11 @@ public class BookstoreDAO {
     /**
      *  Not needed method to build connection
      * private Connection buildConnection() throws SQLException {
-        String DBNAME = "bookstore";
-        String URL = "jdbc:mariadb://localhost:3307/"+DBNAME;
-        String USER = "dgtic";
-        String PASS = "dgtic1234";
-        return java.sql.DriverManager.getConnection(URL, USER, PASS);
-    }**/
+     String DBNAME = "bookstore";
+     String URL = "jdbc:mariadb://localhost:3307/"+DBNAME;
+     String USER = "dgtic";
+     String PASS = "dgtic1234";
+     return java.sql.DriverManager.getConnection(URL, USER, PASS);
+     }**/
 
 }
