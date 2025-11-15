@@ -145,6 +145,58 @@ public class BookstoreDAO {
         return book;
     }
 
+    public void updateBook(Book book) {
+        try {
+            Class.forName("org.mariadb.jdbc.Driver");
+            connection = this.buildConnection();
+
+            String sql = "UPDATE BOOK SET book_name = ?, publisher_code = ? WHERE isbn = ?";
+            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+                stmt.setString(1, book.getBookName());
+                stmt.setString(2, book.getPublisherCode());
+                stmt.setString(3, book.getIsbn());
+                stmt.executeUpdate();
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void deleteBook(String isbn) {
+        try {
+            Class.forName("org.mariadb.jdbc.Driver");
+            connection = this.buildConnection();
+
+            String sql = "DELETE FROM BOOK WHERE isbn = ?";
+            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+                stmt.setString(1, isbn);
+                stmt.executeUpdate();
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     private Connection buildConnection() throws SQLException {
         String DBNAME = "bookstore";
         String URL = "jdbc:mariadb://localhost:3307/"+DBNAME;
