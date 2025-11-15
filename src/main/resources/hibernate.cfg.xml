@@ -1,4 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
+
+<!-- Since Hibernate 4.0 is not needed this configuration xml,
+     the new standard is keep all the hibernate configuration in
+     persistence.xml
+-->
 <!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 5.3//EN"
         "http://hibernate.org/dtd/hibernate-configuration-5.3.dtd">
