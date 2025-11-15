@@ -64,6 +64,26 @@ public class BookstoreDAO {
         }
     }
 
+    public void updateBook(Book book) {
+        try{
+            em.getTransaction().begin();
+            em.merge(book);
+            em.getTransaction().commit();
+        }catch (RuntimeException ex){
+            em.getTransaction().rollback();
+        }
+    }
+
+    public void deleteBook(Book book) {
+        try{
+            em.getTransaction().begin();
+            em.remove(em.contains(book) ? book : em.merge(book));
+            em.getTransaction().commit();
+        }catch (RuntimeException ex){
+            em.getTransaction().rollback();
+        }
+    }
+
     /**
      *  Not needed method to build connection
      * private Connection buildConnection() throws SQLException {
