@@ -1,5 +1,6 @@
 package com.dgtic.unam.dao;
 
+import com.dgtic.unam.config.HibernateConfiguration;
 import com.dgtic.unam.model.Book;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -7,6 +8,7 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.Persistence;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl;
 
@@ -31,7 +33,7 @@ public class BookstoreDAO {
         /**
          * Initialize the SessionFactory for Hibernate operations.
          */
-        this.sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+        this.sessionFactory = HibernateConfiguration.buildSessionFactory();
     }
 
     public void insertBook(Book book) {
