@@ -28,6 +28,9 @@ public class Main {
             System.out.println("Book with ISBN " + searchIsbn + " not found.");
         }
 
+
+        System.out.println(client.countBooks());
+
         // Step Insert a new Book
         //Book newBook = new Book("ISBN-005", "New Book Title", "P001");
         //client.insertBook(newBook);

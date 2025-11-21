@@ -27,4 +27,8 @@ public class BookstoreService {
         bookstoreDAO.insertBook(book);
         System.out.println("Book inserted: " + book.getBookName());
     }
+
+    public long countBooks() {
+        return bookstoreDAO.countBooksHQL();
+    }
 }
