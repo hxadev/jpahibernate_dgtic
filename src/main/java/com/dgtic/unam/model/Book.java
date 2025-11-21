@@ -5,16 +5,14 @@ package com.dgtic.unam.model;
  * POJO Entity con atributos isbn, bookName y publisherCode.
  */
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 /**
  * Entity class representing a Book in the bookstore.
  */
 @Entity
 @Table(name = "BOOK")
+@NamedQuery(query="SELECT b FROM Book b WHERE b.publisherCode=:publisherCode", name = "findBookByPublisherCode")
 public class Book {
     @Id
     @Column(name = "ISBN")

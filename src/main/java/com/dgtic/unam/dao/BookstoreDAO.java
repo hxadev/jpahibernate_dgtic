@@ -61,12 +61,12 @@ public class BookstoreDAO {
 
     // Find by publisherCode exact
     public List<Book> findByPublisherCode(String publisherCode) {
-        return em.createQuery(
-                        "SELECT b FROM Book b WHERE b.publisherCode = :code",
-                        Book.class
-                ).setParameter("code", publisherCode)
+        return em.createNamedQuery("findBookByPublisherCode", Book.class)
+                .setParameter("publisherCode", publisherCode)
                 .getResultList();
     }
+
+
 
     // Find by list of ISBNs (IN clause)
     public List<Book> findByIsbnList(List<String> isbns) {
