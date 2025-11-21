@@ -12,7 +12,12 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name = "BOOK")
-@NamedQuery(query="SELECT b FROM Book b WHERE b.publisherCode=:publisherCode", name = "findBookByPublisherCode")
+//@NamedQuery(query="SELECT b FROM Book b WHERE b.publisherCode=:publisherCode", name = "findBookByPublisherCode")
+@NamedQueries({
+        @NamedQuery(query = "SELECT b FROM Book b WHERE b.bookName LIKE :pattern", name = "findBookByNamePattern"),
+        @NamedQuery(query = "SELECT b FROM Book b WHERE b.publisherCode LIKE :prefix", name = "findBookByPublisherCodePrefix"),
+        @NamedQuery(query="SELECT b FROM Book b WHERE b.publisherCode=:publisherCode", name = "findBookByPublisherCode")
+})
 public class Book {
     @Id
     @Column(name = "ISBN")
