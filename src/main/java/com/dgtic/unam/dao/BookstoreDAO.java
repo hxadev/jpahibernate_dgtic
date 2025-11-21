@@ -1,44 +1,29 @@
 package com.dgtic.unam.dao;
 
 import com.dgtic.unam.model.Book;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.NoResultException;
-import jakarta.persistence.Persistence;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Data Access Object (DAO) for Bookstore operations Hibernate and JPA.
- */
 public class BookstoreDAO {
-    // No Needed Connection as attribute
-    //private Connection connection;
 
     private SessionFactory sessionFactory;
 
     public BookstoreDAO() {
-        /**
-         * Initialize the SessionFactory for Hibernate operations.
-         */
-        this.sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+        this.sessionFactory = new Configuration()
+                .configure("hibernate.cfg.xml")
+                .buildSessionFactory();
     }
 
     public void insertBook(Book book) {
         try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
+            Transaction tx = session.beginTransaction();
             session.save(book);
-            session.getTransaction().commit();
+            tx.commit();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -46,9 +31,18 @@ public class BookstoreDAO {
 
     public List<Book> findAllBooks() {
         try (Session session = sessionFactory.openSession()) {
-            List<Book> books = session.createQuery("FROM Book", Book.class).list();
-            session.close();
-            return books;
+            return session.createQuery("from Book", Book.class).list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
+    public List<Book> findBooksByPublisherCode(String publisherCode) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("from Book b where b.publisherCode = :code", Book.class)
+                    .setParameter("code", publisherCode)
+                    .list();
         } catch (Exception ex) {
             ex.printStackTrace();
             return Collections.emptyList();
@@ -57,23 +51,156 @@ public class BookstoreDAO {
 
     public Book findBookByIsbn(String isbn) {
         try (Session session = sessionFactory.openSession()) {
-            Book book = session.get(Book.class, isbn);
-            session.close();
-            return book;
+            return session.get(Book.class, isbn);
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
         }
     }
 
-    /**
-     *  Not needed method to build connection
-     * private Connection buildConnection() throws SQLException {
-     String DBNAME = "bookstore";
-     String URL = "jdbc:mariadb://localhost:3307/"+DBNAME;
-     String USER = "dgtic";
-     String PASS = "dgtic1234";
-     return java.sql.DriverManager.getConnection(URL, USER, PASS);
-     }**/
+    // HQL bulk update book name by ISBN
+    public int updateBookNameHQL(String isbn, String newName) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            int updated = session.createQuery(
+                            "update Book b set b.bookName = :name where b.isbn = :isbn")
+                    .setParameter("name", newName)
+                    .setParameter("isbn", isbn)
+                    .executeUpdate();
+            tx.commit();
+            session.clear();
+            return updated;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return 0;
+        }
+    }
 
+    // HQL bulk update publisher code for matching old code
+    public int updatePublisherCodeHQL(String oldCode, String newCode) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            int updated = session.createQuery(
+                            "update Book b set b.publisherCode = :newCode where b.publisherCode = :oldCode")
+                    .setParameter("newCode", newCode)
+                    .setParameter("oldCode", oldCode)
+                    .executeUpdate();
+            tx.commit();
+            session.clear();
+            return updated;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return 0;
+        }
+    }
+
+    // HQL bulk delete by ISBN
+    public int deleteBookByIsbnHQL(String isbn) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            int deleted = session.createQuery(
+                            "delete from Book b where b.isbn = :isbn")
+                    .setParameter("isbn", isbn)
+                    .executeUpdate();
+            tx.commit();
+            session.clear();
+            return deleted;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return 0;
+        }
+    }
+
+    // HQL bulk delete by publisher code
+    public int deleteBooksByPublisherCodeHQL(String publisherCode) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            int deleted = session.createQuery(
+                            "delete from Book b where b.publisherCode = :code")
+                    .setParameter("code", publisherCode)
+                    .executeUpdate();
+            tx.commit();
+            session.clear();
+            return deleted;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return 0;
+        }
+    }
+
+    // Count books
+    public long countBooksHQL() {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("select count(b) from Book b", Long.class)
+                    .uniqueResult();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return 0L;
+        }
+    }
+
+    // Distinct publisher codes
+    public List<String> findDistinctPublisherCodesHQL() {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery(
+                            "select distinct b.publisherCode from Book b", String.class)
+                    .list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
+    // LIKE pattern search
+    public List<Book> findBooksByNamePatternHQL(String pattern) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery(
+                            "from Book b where b.bookName like :pattern", Book.class)
+                    .setParameter("pattern", pattern)
+                    .list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
+    // Pagination
+    public List<Book> findBooksPageHQL(int pageNumber, int pageSize) {
+        int firstResult = Math.max(0, (pageNumber - 1) * pageSize);
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("from Book b order by b.bookName", Book.class)
+                    .setFirstResult(firstResult)
+                    .setMaxResults(pageSize)
+                    .list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
+    // Exists by ISBN
+    public boolean existsByIsbnHQL(String isbn) {
+        try (Session session = sessionFactory.openSession()) {
+            Long count = session.createQuery(
+                            "select count(b) from Book b where b.isbn = :isbn", Long.class)
+                    .setParameter("isbn", isbn)
+                    .uniqueResult();
+            return count != null && count > 0;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    // Projection: ISBN and name only
+    public List<Object[]> findIsbnAndNameHQL() {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery(
+                            "select b.isbn, b.bookName from Book b", Object[].class)
+                    .list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
 }
