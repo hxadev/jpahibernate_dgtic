@@ -1,4 +1,4 @@
-package com.dgtic.unam.entities;
+package com.dgtic.unam.model;
 
 import jakarta.persistence.*;
 
@@ -14,8 +14,6 @@ public class Publisher implements Serializable {
     private String code;
     @Column(name="PUBLISHER_NAME")
     private String publisherName;
-    @OneToMany(mappedBy = "publisher")
-    private List<Book> books;
 
     // Constructor
     public Publisher(){
@@ -37,14 +35,6 @@ public class Publisher implements Serializable {
 
     public void setPublisherName(String publisherName) {
         this.publisherName = publisherName;
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
     }
 
     @Override

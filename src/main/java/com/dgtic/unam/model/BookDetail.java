@@ -1,4 +1,4 @@
-package com.dgtic.unam.entities;
+package com.dgtic.unam.model;
 
 import jakarta.persistence.*;
 
@@ -10,7 +10,11 @@ public class BookDetail {
     @Column(name = "ID", nullable = false)
     private Integer id;
 
-    @OneToOne(mappedBy = "bookDetail")
+     /* The entity BookDetail contains the FK,
+        then we use @OneToOne with @JoinColumn to specify the foreign key column
+     */
+    @OneToOne
+    @JoinColumn(name="ISBN")
     private Book book;
 
     @Lob
@@ -21,7 +25,6 @@ public class BookDetail {
     private Integer yearPublication;
 
 
-
     public Integer getId() {
         return id;
     }
@@ -30,12 +33,12 @@ public class BookDetail {
         this.id = id;
     }
 
-    public Book getIsbn() {
+    public Book getBook() {
         return book;
     }
 
-    public void setIsbn(Book isbn) {
-        this.book = isbn;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     public String getSummary() {
@@ -54,4 +57,13 @@ public class BookDetail {
         this.yearPublication = yearPublication;
     }
 
+    @Override
+    public String toString() {
+        return "BookDetail{" +
+                "id=" + id +
+                ", book=" + book +
+                ", summary='" + summary + '\'' +
+                ", yearPublication=" + yearPublication +
+                '}';
+    }
 }

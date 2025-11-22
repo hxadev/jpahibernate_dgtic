@@ -1,4 +1,4 @@
-package com.dgtic.unam.entities;
+package com.dgtic.unam.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
@@ -7,29 +7,38 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name = "BOOK_AUTHOR")
 public class BookAuthor {
-    @EmbeddedId
-    private BookAuthorId id;
 
-    @MapsId("isbnBook")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "ISBN_BOOK", nullable = false)
-    private Book isbnBook;
+    @Column(name = "ISBN_BOOK", nullable = false, length = 13)
+    private String isbnBook;
+    @Column(name = "AUTHOR_ID", nullable = false)
+    private Long authorId;
+    @Id
+    private Long id;
 
-    public BookAuthorId getId() {
-        return id;
+    public BookAuthor() {
     }
 
-    public void setId(BookAuthorId id) {
-        this.id = id;
-    }
-
-    public Book getIsbnBook() {
+    public String getIsbnBook() {
         return isbnBook;
     }
 
-    public void setIsbnBook(Book isbnBook) {
+    public void setIsbnBook(String isbnBook) {
         this.isbnBook = isbnBook;
     }
 
+    public Long getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }

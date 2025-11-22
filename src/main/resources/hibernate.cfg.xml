@@ -24,11 +24,16 @@
 <!--        <property name="hibernate.hbm2ddl.auto">update</property>-->
 
         <!-- Debug -->
-        <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.format_sql">false</property>
 
         <!-- Entity mappings (XML or annotations) -->
         <mapping class="com.dgtic.unam.model.Book"/>
+        <mapping class="com.dgtic.unam.model.Chapter"/>
+        <mapping class="com.dgtic.unam.model.Publisher"/>
+        <mapping class="com.dgtic.unam.model.Author"/>
+        <mapping class="com.dgtic.unam.model.BookAuthor"/>
+        <mapping class="com.dgtic.unam.model.BookDetail"/>
 
     </session-factory>
 </hibernate-configuration>

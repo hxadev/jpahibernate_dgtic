@@ -1,4 +1,4 @@
-package com.dgtic.unam.entities;
+package com.dgtic.unam.model;
 
 import jakarta.persistence.*;
 
@@ -12,25 +12,27 @@ import java.io.Serializable;
 @Table(name="CHAPTER")
 public class Chapter implements Serializable {
     // Attributes private
-    @ManyToOne
-    @JoinColumn(name = "BOOK_ISBN")
-    private Book book;
+    @Id
+    @Column(name="TITLE")
+    private String title;
+
+    @Column(name="BOOK_ISBN")
+    private String bookIsbn;
+
     @Column(name="CHAPTER_NUM")
     private int chapterNum;
-    @Id
-    private String title;
 
     // Constructor
     public Chapter(){
 
     }
 
-    public Book getBook() {
-        return book;
+    public String getBookIsbn() {
+        return bookIsbn;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBookIsbn(String bookIsbn) {
+        this.bookIsbn = bookIsbn;
     }
 
     public int getChapterNum() {

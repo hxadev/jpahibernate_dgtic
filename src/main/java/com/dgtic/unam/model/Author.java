@@ -1,4 +1,4 @@
-package com.dgtic.unam.entities;
+package com.dgtic.unam.model;
 
 import jakarta.persistence.*;
 

@@ -16,27 +16,8 @@ public class Main {
         // Step Get all Books
         List<Book> books= client.findAllBooks();
         for (Book book : books) {
-            System.out.println("Book: " + book.getBookName() + ", ISBN: " + book.getIsbn() + ", Publisher Code: " + book.getPublisherCode());
+            System.out.println("Book: " + book.getBookName() + ", ISBN: " + book.getIsbn() + ", Publisher Code: " + book.getPublisherCode()+", Detail: "+book.getDetail());
         }
-
-        // Step Find a Book by ISBN
-        String searchIsbn = "ISBN-003";
-        Book foundBook = client.findBookByIsbn(searchIsbn);
-        if (foundBook != null) {
-            System.out.println("Found Book: " + foundBook.getBookName() + ", ISBN: " + foundBook.getIsbn() + ", Publisher Code: " + foundBook.getPublisherCode());
-        } else {
-            System.out.println("Book with ISBN " + searchIsbn + " not found.");
-        }
-
-
-        System.out.println(client.countBooks());
-
-        // Step Insert a new Book
-        //Book newBook = new Book("ISBN-005", "New Book Title", "P001");
-        //client.insertBook(newBook);
-
-
-
 
     }
 }
