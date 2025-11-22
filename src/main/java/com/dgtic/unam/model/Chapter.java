@@ -16,8 +16,14 @@ public class Chapter implements Serializable {
     @Column(name="TITLE")
     private String title;
 
-    @Column(name="BOOK_ISBN")
-    private String bookIsbn;
+    /**
+     * Many Chapters to One Book
+     * ChapterEntity is the owning side of the relationship since it contains the foreign key (BOOK_ISBN)
+     * For that reason, we use @ManyToOne with @JoinColumn to specify the foreign key column.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "BOOK_ISBN")
+    private Book book;
 
     @Column(name="CHAPTER_NUM")
     private int chapterNum;
@@ -27,12 +33,12 @@ public class Chapter implements Serializable {
 
     }
 
-    public String getBookIsbn() {
-        return bookIsbn;
+    public Book getBook() {
+        return book;
     }
 
-    public void setBookIsbn(String bookIsbn) {
-        this.bookIsbn = bookIsbn;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     public int getChapterNum() {
@@ -49,5 +55,14 @@ public class Chapter implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return "Chapter{" +
+                "title='" + title + '\'' +
+                ", book=" + book +
+                ", chapterNum=" + chapterNum +
+                '}';
     }
 }

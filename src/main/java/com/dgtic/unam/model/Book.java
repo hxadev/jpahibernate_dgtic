@@ -40,8 +40,24 @@ public class Book implements Serializable {
     @OneToOne(mappedBy = "book", fetch = FetchType.LAZY)
     private BookDetail detail;
 
+    /**
+     * One book can have many chapters.
+     * The Book entity is the inverse side of the relationship since it does not contain the foreign key.
+     * We use mappedBy attribute to indicate that the Chapter entity owns the relationship.
+     */
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
+    private List<Chapter> chapters;
+
 
     public Book() {
+    }
+
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<Chapter> chapters) {
+        this.chapters = chapters;
     }
 
     public String getIsbn() {

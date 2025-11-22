@@ -33,7 +33,7 @@ public class BookstoreDAO {
         try (Session session = sessionFactory.openSession()) {
             // Why do we need left join fetch here?
             //
-            return session.createQuery("from Book b left join fetch b.publisher left join fetch b.detail " , Book.class).list();
+            return session.createQuery("from Book b left join fetch b.publisher left join fetch b.detail left join fetch b.chapters " , Book.class).list();
         } catch (Exception ex) {
             ex.printStackTrace();
             return Collections.emptyList();
