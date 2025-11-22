@@ -16,7 +16,7 @@ public class Main {
         // Step Get all Books
         List<Book> books= client.findAllBooks();
         for (Book book : books) {
-            System.out.println("Book: " + book.getBookName() + ", ISBN: " + book.getIsbn() + ", Publisher Code: " + book.getPublisher()+", Detail: "+book.getDetail()+", Chapters: "+book.getChapters());
+            System.out.println("Book: " + book.getBookName() + ", ISBN: " + book.getIsbn() + ", Publisher Code: " + book.getPublisher()+", Detail: "+book.getDetail()+", Chapters: "+book.getChapters()+", Authors: " +book.getAuthors());
         }
 
     }

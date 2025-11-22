@@ -11,6 +11,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 // POJO de entidad
 @Entity
@@ -48,8 +49,30 @@ public class Book implements Serializable {
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
     private List<Chapter> chapters;
 
+    /**
+     * Many books can have many authors.
+     * We use @ManyToMany annotation to define the relationship.
+     * We use @JoinTable to specify the join table and the join columns.
+     */
+    @ManyToMany
+    @JoinTable(
+            name = "BOOK_AUTHOR", // Join table name
+            joinColumns = @JoinColumn(name = "ISBN_BOOK"), // Foreign key column in the join table for this entity
+            inverseJoinColumns = @JoinColumn(name = "AUTHOR_ID") // Foreign key column in the join table for the other entity
+    )
+    private Set<Author> authors;
+
+
 
     public Book() {
+    }
+
+    public Set<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<Author> authors) {
+        this.authors = authors;
     }
 
     public List<Chapter> getChapters() {

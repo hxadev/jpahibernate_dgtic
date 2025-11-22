@@ -2,6 +2,8 @@ package com.dgtic.unam.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "AUTHOR")
 public class Author {
@@ -10,8 +12,13 @@ public class Author {
     @Column(name = "ID", nullable = false)
     private Long id;
 
-    @Column(name = "AUTHOR_NAME", nullable = false, length = 150)
-    private String authorName;
+    /**
+     * Many-to-Many relationship with Book entity
+     * (mappedBy = "authors") indicates that the Book entity owns the relationship
+     * and the join table is defined there.
+     */
+    @ManyToMany(mappedBy = "authors")
+    private List<Book> books;
 
     @Column(name = "COUNTRY", length = 100)
     private String country;
@@ -24,12 +31,12 @@ public class Author {
         this.id = id;
     }
 
-    public String getAuthorName() {
-        return authorName;
+    public List<Book> getBooks() {
+        return books;
     }
 
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     public String getCountry() {
