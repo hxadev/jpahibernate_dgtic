@@ -15,6 +15,15 @@ public class Publisher implements Serializable {
     @Column(name="PUBLISHER_NAME")
     private String publisherName;
 
+    /**
+     * Publisher entity is the entity that owns the relationship with Book entity.
+     * One publisher can publish many books.
+     * This is the inverse side of the relationship.
+     * For that reason we use mappedBy attribute to indicate that the Book entity owns the relationship.
+     */
+    @OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY)
+    private List<Book> books;
+
     // Constructor
     public Publisher(){
 
@@ -35,6 +44,14 @@ public class Publisher implements Serializable {
 
     public void setPublisherName(String publisherName) {
         this.publisherName = publisherName;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     @Override

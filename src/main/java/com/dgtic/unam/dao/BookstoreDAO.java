@@ -31,7 +31,9 @@ public class BookstoreDAO {
 
     public List<Book> findAllBooks() {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("from Book", Book.class).list();
+            // Why do we need left join fetch here?
+            //
+            return session.createQuery("from Book b left join fetch b.publisher left join fetch b.detail " , Book.class).list();
         } catch (Exception ex) {
             ex.printStackTrace();
             return Collections.emptyList();
@@ -40,7 +42,7 @@ public class BookstoreDAO {
 
     public List<Book> findBooksByPublisherCode(String publisherCode) {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("from Book b where b.publisherCode = :code", Book.class)
+            return session.createQuery("from Book b where b.publisher.code = :code", Book.class)
                     .setParameter("code", publisherCode)
                     .list();
         } catch (Exception ex) {
@@ -81,7 +83,7 @@ public class BookstoreDAO {
         try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             int updated = session.createQuery(
-                            "update Book b set b.publisherCode = :newCode where b.publisherCode = :oldCode")
+                            "update Book b set b.publisher.code = :newCode where b.publisher.code = :oldCode")
                     .setParameter("newCode", newCode)
                     .setParameter("oldCode", oldCode)
                     .executeUpdate();
@@ -116,7 +118,7 @@ public class BookstoreDAO {
         try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             int deleted = session.createQuery(
-                            "delete from Book b where b.publisherCode = :code")
+                            "delete from Book b where b.publisher.code = :code")
                     .setParameter("code", publisherCode)
                     .executeUpdate();
             tx.commit();
@@ -143,7 +145,7 @@ public class BookstoreDAO {
     public List<String> findDistinctPublisherCodesHQL() {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery(
-                            "select distinct b.publisherCode from Book b", String.class)
+                            "select distinct b.publisher.code from Book b", String.class)
                     .list();
         } catch (Exception ex) {
             ex.printStackTrace();

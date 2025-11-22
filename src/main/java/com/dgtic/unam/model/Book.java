@@ -23,8 +23,14 @@ public class Book implements Serializable {
     @Column(name = "BOOK_NAME")
     private String bookName;
 
-    @Column(name = "PUBLISHER_CODE")
-    private String publisherCode;
+    /**
+     * Many books can be published by one publisher.
+     * Book entity is the owner of the relationship since it contains the foreign key (PUBLISHER_CODE).
+     * For that reason, we use @ManyToOne with @JoinColumn to specify the foreign key column.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PUBLISHER_CODE")
+    private Publisher publisher;
 
     /**
      * the Book entity does not contains the FK, but we can still map the relationship
@@ -54,9 +60,7 @@ public class Book implements Serializable {
         this.bookName = bookName;
     }
 
-    public String getPublisherCode() {
-        return publisherCode;
-    }
+
 
     public BookDetail getDetail() {
         return detail;
@@ -66,8 +70,12 @@ public class Book implements Serializable {
         this.detail = detail;
     }
 
-    public void setPublisherCode(String publisherCode) {
-        this.publisherCode = publisherCode;
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 
     @Override
@@ -75,6 +83,7 @@ public class Book implements Serializable {
         return "Book{" +
                 "isbn='" + isbn + '\'' +
                 ", bookName='" + bookName + '\'' +
+                ", publisher=" + publisher +
                 '}';
     }
 }
