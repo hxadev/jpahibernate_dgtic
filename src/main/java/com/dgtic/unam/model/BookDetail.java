@@ -13,7 +13,7 @@ public class BookDetail {
      /* The entity BookDetail contains the FK,
         then we use @OneToOne with @JoinColumn to specify the foreign key column
      */
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="ISBN")
     private Book book;
 
