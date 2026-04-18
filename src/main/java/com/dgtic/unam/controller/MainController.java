@@ -1,4 +1,4 @@
-package com.dgtic.unam;
+package com.dgtic.unam.controller;
 
 import com.dgtic.unam.service.BookstoreService;
 import com.dgtic.unam.model.Book;
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Clase principal para ejecutar la aplicación de la librería.
  */
-public class Main {
+public class MainController {
     public static void main(String[] args) {
         BookstoreDAO bookstoreDAO = new BookstoreDAO();
         BookstoreService client = new BookstoreService(bookstoreDAO);

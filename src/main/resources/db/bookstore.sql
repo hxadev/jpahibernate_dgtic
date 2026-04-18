@@ -46,7 +46,7 @@ CREATE TABLE CHAPTER (
 
 
 -- 5. INSERTS DE PRUEBA -----------------------------------------
-
+|
 -- Editoriales
 INSERT INTO PUBLISHER (CODE, PUBLISHER_NAME) VALUES
 ('P001', 'Penguin Random House'),
