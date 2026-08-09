@@ -1,29 +1,29 @@
 package com.dgtic.unam;
 
-import com.dgtic.unam.service.Book;
-import com.dgtic.unam.service.BookstoreService;
+import com.dgtic.unam.service.Course;
+import com.dgtic.unam.service.LearnHubService;
 
 import java.util.List;
 /**
- * Clase principal para ejecutar la aplicación de la librería.
+ * Main Class to execute Program.
  */
 public class Main {
     public static void main(String[] args) {
-        BookstoreService service = new BookstoreService();
+        LearnHubService service = new LearnHubService();
 
         // Step Get all Books
-        List<Book> books= service.findAllBooks();
-        for (Book book : books) {
-            System.out.println("Book: " + book.getBookName() + ", ISBN: " + book.getIsbn() + ", Publisher Code: " + book.getPublisherCode());
+        List<Course> books= service.findAllCourses();
+        for (Course course : books) {
+            System.out.println("Course: " + course.title() + ", Description: " + course.description() + ", Price: " + course.price());
         }
 
         // Step Find a Book by ISBN
-        String searchIsbn = "ISBN-002";
-        Book foundBook = service.findBookByIsbn(searchIsbn);
-        if (foundBook != null) {
-            System.out.println("Found Book: " + foundBook.getBookName() + ", ISBN: " + foundBook.getIsbn() + ", Publisher Code: " + foundBook.getPublisherCode());
+        Integer searchCourse = 1;
+        Course foundCourse = service.findCourseById(searchCourse); // Assuming you have a method to find a course by ID
+        if (foundCourse != null) {
+            System.out.println("Found Book: " + foundCourse.title() + ", ID: " + foundCourse.id() + ", Title : " + foundCourse.title());
         } else {
-            System.out.println("Book with ISBN " + searchIsbn + " not found.");
+            System.out.println("Book with ID " + searchCourse + " not found.");
         }
 
         // Step Insert a new Book
