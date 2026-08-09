@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Singleton  AppProperties
+ */
 public class AppProperties {
     private static AppProperties instance;
     private final Properties properties = new Properties();

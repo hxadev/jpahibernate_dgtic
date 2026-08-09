@@ -123,7 +123,7 @@ public class LearnHubService {
             Class.forName("org.mariadb.jdbc.Driver");
             connection = this.buildConnection();
 
-            var sql = "SELECT * FROM COURSE WHERE id = ?";
+            var sql = "SELECT * FROM courses WHERE id = ?";
             try (PreparedStatement stmt = connection.prepareStatement(sql)) {
                 stmt.setInt(1, id);
                 ResultSet rs = stmt.executeQuery();
