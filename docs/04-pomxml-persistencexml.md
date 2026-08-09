@@ -1,31 +1,10 @@
-# 📦 pom.xml — Proyecto LearnHub
+# 📦 pom.xml — Dependencias Necesarias
 
-> Copiar este archivo como `pom.xml` en la raíz de tu proyecto Maven.
+> Copiar la propiedad properties y dependencies en tu pom.xml
 
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>mx.unam.dgtic</groupId>
-    <artifactId>learnhub</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-
-    <name>LearnHub</name>
-    <description>
-        Plataforma de Cursos Online — Módulo 3: Persistencia con Hibernate
-        Diplomado Java Ed. 20 — DGTIC-UNAM
-    </description>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
         <hibernate.version>6.4.4.Final</hibernate.version>
         <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
         <mariadb.version>3.3.3</mariadb.version>
@@ -35,7 +14,7 @@
 
     <dependencies>
 
-        <!-- ═══ HIBERNATE / JPA ═══ -->
+        <!--  HIBERNATE / JPA  -->
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
@@ -48,7 +27,7 @@
             <version>${jakarta.persistence.version}</version>
         </dependency>
 
-        <!-- ═══ VALIDACIONES ═══ -->
+        <!--  VALIDACIONES  -->
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -61,21 +40,21 @@
             <version>5.0.0</version>
         </dependency>
 
-        <!-- ═══ BASE DE DATOS ═══ -->
+        <!--  BASE DE DATOS  -->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
             <version>${mariadb.version}</version>
         </dependency>
 
-        <!-- ═══ LOGGING ═══ -->
+        <!--  LOGGING  -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>2.0.12</version>
         </dependency>
 
-        <!-- ═══ LOMBOK ═══ -->
+        <!--  LOMBOK  -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -83,7 +62,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- ═══ TESTING ═══ -->
+        <!--  TESTING  -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -113,12 +92,11 @@
             </plugin>
         </plugins>
     </build>
-</project>
 ```
 
 ---
 
-## persistence.xml
+## Template persistence.xml
 
 Crear en `src/main/resources/META-INF/persistence.xml`:
 
@@ -130,15 +108,15 @@ Crear en `src/main/resources/META-INF/persistence.xml`:
              https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"
              version="3.1">
 
-    <persistence-unit name="learnhubPU" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="NOMBRE_UNIDAD_PERSISTENCIA" transaction-type="RESOURCE_LOCAL">
         <properties>
             <!-- Conexión a MariaDB -->
             <property name="jakarta.persistence.jdbc.url"
-                      value="jdbc:mariadb://localhost:3306/learnhub"/>
+                      value="jdbc:mariadb://localhost:3306/NOMBRE_TU_BASE_DE_DATOS"/>
             <property name="jakarta.persistence.jdbc.user"
-                      value="root"/>
+                      value="TU_USUARIOS"/>
             <property name="jakarta.persistence.jdbc.password"
-                      value="CAMBIA_POR_TU_PASSWORD"/>
+                      value="TU_PASSWORD"/>
             <property name="jakarta.persistence.jdbc.driver"
                       value="org.mariadb.jdbc.Driver"/>
 
@@ -158,7 +136,7 @@ Crear en `src/main/resources/META-INF/persistence.xml`:
 </persistence>
 ```
 
-> ⚠️ **Cambia `CAMBIA_POR_TU_PASSWORD` por tu contraseña real de MariaDB.**
+> ⚠️ **Cambia `TU_PASSWORD` por tu contraseña real de MariaDB.**
 
 ---
 

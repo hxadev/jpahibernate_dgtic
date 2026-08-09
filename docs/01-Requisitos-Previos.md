@@ -215,5 +215,5 @@ Si alguno falla, consulta la **Guía de Configuración del Entorno** o contacta 
 
 ---
 
-> **Módulo 3: Persistencia con Hibernate** | 20 horas (4 sesiones × 5 hrs)
+> **Módulo 3: Persistencia con Hibernate** |
 > Diplomado Java Ed. 20 | DGTIC-UNAM | [hxadev.tech](http://hxadev.tech)
