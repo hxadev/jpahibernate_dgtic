@@ -166,7 +166,7 @@ public class LearnHubService {
         AppProperties properties = AppProperties.getInstance();
         // 1. Load Driver
         String DBNAME = properties.get("db.name");
-        String URL = properties.get("db.url") + DBNAME;
+        String URL = properties.get("db.url");
         String USER = properties.get("db.user");
         String PASS = properties.get("db.password");
 
