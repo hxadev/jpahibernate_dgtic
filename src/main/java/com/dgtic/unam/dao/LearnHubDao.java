@@ -3,19 +3,14 @@ package com.dgtic.unam.dao;
 import com.dgtic.unam.entity.Course;
 import com.dgtic.unam.utils.ConnectionUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LearnHubDao {
     private Connection connection;
 
-    public LearnHubDao(Connection connection) {
-        this.connection = connection;
+    public LearnHubDao() {
     }
 
     public Course findById(Integer id) {
@@ -23,7 +18,7 @@ public class LearnHubDao {
         Course course = null;
         try {
             Class.forName("org.mariadb.jdbc.Driver");
-
+            this.connection = ConnectionUtils.buildConnection();
             var sql = "SELECT * FROM courses WHERE id = ?";
             try (PreparedStatement stmt = connection.prepareStatement(sql)) {
                 stmt.setInt(1, id);
@@ -70,6 +65,7 @@ public class LearnHubDao {
             // 1. Load Driver
             Class.forName("org.mariadb.jdbc.Driver");
 
+            this.connection = ConnectionUtils.buildConnection();
 
             // 3. Create Statement(Query)
             var sql = "SELECT *  FROM courses";
@@ -117,6 +113,7 @@ public class LearnHubDao {
     public void insert(Course course) {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
+            this.connection = ConnectionUtils.buildConnection();
 
 
             // 3. Create Statement

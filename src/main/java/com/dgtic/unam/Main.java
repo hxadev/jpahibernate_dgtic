@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) throws SQLException {
-        LearnHubDao dao = new LearnHubDao(ConnectionUtils.buildConnection());
+        LearnHubDao dao = new LearnHubDao();
         LearnHubService service = new LearnHubService(dao);
 
         // Step Get all courses
