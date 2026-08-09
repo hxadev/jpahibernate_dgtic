@@ -1,0 +1,73 @@
+# Compiled class files
+*.class
+
+# Build output
+/target/
+/build/
+/out/
+
+# Maven
+/pom.xml.tag
+/pom.xml.releaseBackup
+/pom.xml.versionsBackup
+/logging/
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# Eclipse
+.project
+.classpath
+.settings/
+.recommenders
+
+# NetBeans
+nbproject/private/
+
+# JetBrains Rider/Other
+*.sln
+*.user
+*.suo
+
+# OS files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Temporary files
+*~
+*.tmp
+*.temp
+
+# Logs and reports
+*.log
+/surefire-reports/
+/build/reports/
+/coverage/
+/jacoco.exec
+
+# Test output
+test-output/
+failures.txt
+
+# Generated sources (IDE or build)
+/generated-sources/
+/generated-sources/**
+
+# Java archive outputs (binaries built by the project)
+*.jar
+*.war
+*.ear
+
+# Avoid ignoring files you intentionally checked-in (see note below)

@@ -1,39 +1,34 @@
 package com.dgtic.unam;
 
-import com.dgtic.unam.service.BookstoreService;
-import com.dgtic.unam.model.Book;
-import com.dgtic.unam.dao.BookstoreDAO;
+import com.dgtic.unam.dao.LearnHubDao;
+import com.dgtic.unam.entity.Course;
+import com.dgtic.unam.service.LearnHubService;
+import com.dgtic.unam.utils.ConnectionUtils;
 
+import java.sql.SQLException;
 import java.util.List;
 /**
- * Clase principal para ejecutar la aplicación de la librería.
+ * Main Class to execute Program.
  */
 public class Main {
-    public static void main(String[] args) {
-        BookstoreDAO bookstoreDAO = new BookstoreDAO();
-        BookstoreService client = new BookstoreService(bookstoreDAO);
+    public static void main(String[] args) throws SQLException {
+        LearnHubDao dao = new LearnHubDao(ConnectionUtils.buildConnection());
+        LearnHubService service = new LearnHubService(dao);
 
-        // Step Get all Books
-        List<Book> books= client.findAllBooks();
-        for (Book book : books) {
-            System.out.println("Book: " + book.getBookName() + ", ISBN: " + book.getIsbn() + ", Publisher Code: " + book.getPublisherCode());
+        // Step Get all courses
+        List<Course> courses= service.findAllCourses();
+        for (Course course : courses) {
+            System.out.println("Course: " + course.title() + ", Description: " + course.description() + ", Price: " + course.price());
         }
 
-        // Step Find a Book by ISBN
-        String searchIsbn = "ISBN-002";
-        Book foundBook = client.findBookByIsbn(searchIsbn);
-        if (foundBook != null) {
-            System.out.println("Found Book: " + foundBook.getBookName() + ", ISBN: " + foundBook.getIsbn() + ", Publisher Code: " + foundBook.getPublisherCode());
+        // Step Find a Course by ISBN
+        Integer searchCourse = 1;
+        Course foundCourse = service.findCourseById(searchCourse); // Assuming you have a method to find a course by ID
+        if (foundCourse != null) {
+            System.out.println("Found Course: " + foundCourse.title() + ", ID: " + foundCourse.id() + ", Title : " + foundCourse.title());
         } else {
-            System.out.println("Book with ISBN " + searchIsbn + " not found.");
+            System.out.println("Course with ID " + searchCourse + " not found.");
         }
-
-        // Step Insert a new Book
-        //Book newBook = new Book("ISBN-005", "New Book Title", "P001");
-        //client.insertBook(newBook);
-
-
-
 
     }
 }
