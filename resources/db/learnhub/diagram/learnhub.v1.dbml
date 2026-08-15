@@ -1,0 +1,204 @@
+table levels {
+  id int [primary key] 
+  title varchar(100)
+  description text
+  active boolean
+
+  Records {
+    1 , 'BEGINNER' , 'Beginner learner without most experience' , true
+    2 , 'INTERMEDIATE' , 'Learner who has experience working on the topic' , true
+    3 , 'ADVANCED' , 'Experienced with experience solving real solutions' , true
+  }
+}
+
+table categories {
+  id int [primary key]
+  name varchar(200) unique
+  description text
+  active boolean
+  created_at timestamp 
+
+  Records {
+    1 , 'Programación' , 'Lenguajes de programación y desarrollo de software' , true , '2026-01-01 00:00:00'
+    2 , 'Bases de Datos' , 'Diseño, administración y consulta de bases de datos' , true , '2026-01-01 00:00:00'
+    3 , 'Cloud Computing' , 'Servicios en la nube y despliegue de aplicaciones' , true , '2026-01-01 00:00:00'
+    4 , 'DevOps' , 'Integración continua, contenedores y automatización' , true , '2026-01-01 00:00:00'
+    5 , 'Desarrollo Web' , 'Frontend, backend y fullstack web' , true , '2026-01-01 00:00:00'
+    6 , 'Inteligencia Artificial' , 'Machine learning, deep learning y NLP' , true , '2026-01-01 00:00:00'
+    7 , 'Seguridad' , 'Ciberseguridad y seguridad de aplicaciones' , true , '2026-01-01 00:00:00'
+    8 , 'Arquitectura de Software' , 'Patrones, diseño y arquitectura de sistemas' , true , '2026-01-01 00:00:00'
+  }
+}
+
+table instructors {
+  id varchar(10) [primary key]
+  first_name varchar(50) 
+  last_name varchar(100)
+  email varchar(50) unique
+  bio text
+  speciality varchar(30)
+  active boolean  
+  created_at timestamp
+
+  Records {
+    'INS-001' , 'Alfonso' , 'Hernández' , 'alfonso@learnhub.com' , 'Software Engineer con 8+ años en backend y arquitectura' , 'Java, Spring Boot' , true , '2026-01-05 09:00:00'
+    'INS-002' , 'María' , 'González' , 'maria@learnhub.com' , 'Especialista en bases de datos Oracle y MySQL' , 'SQL, Hibernate' , true , '2026-01-05 09:00:00'
+    'INS-003' , 'Carlos' , 'Ramírez' , 'carlos@learnhub.com' , 'DevOps engineer certificado AWS y Azure' , 'Docker, Kubernetes' , true , '2026-01-10 10:00:00'
+    'INS-004' , 'Laura' , 'Torres' , 'laura@learnhub.com' , 'Desarrolladora fullstack React y Node.js' , 'JavaScript, React' , true , '2026-01-10 10:00:00'
+    'INS-005' , 'Roberto' , 'Díaz' , 'roberto@learnhub.com' , 'Investigador en IA y docente universitario' , 'Python, TensorFlow' , true , '2026-01-15 08:00:00'
+    'INS-006' , 'Ana' , 'Morales' , 'ana@learnhub.com' , 'Especialista en seguridad y ethical hacking' , 'Pentesting, OAuth2' , true , '2026-01-15 08:00:00'
+  }
+}
+
+table courses {
+  id int [primary key]
+  title varchar(200) 
+  description text
+  price decimal(10,2) 
+  duration int
+  active boolean
+  created_at timestamp
+  updated_at timestamp
+  ranking int
+  level_id int [ref: > levels.id]
+  category_id int [ref: > categories.id]
+
+  Records {
+    1 , 'Java desde Cero' , 'Aprende Java SE desde fundamentos hasta POO avanzada' , 2999.00 , 40 , true , '2026-01-15 00:00:00' , '2026-06-01 00:00:00' , 5 , 1 , 1
+    2 , 'Hibernate y JPA' , 'Persistencia de datos con Hibernate en aplicaciones Java' , 3499.00 , 20 , true , '2026-02-01 00:00:00' , '2026-06-01 00:00:00' , 4 , 2 , 1
+    3 , 'Spring Boot REST API' , 'Diseño e implementación de APIs RESTful' , 3999.00 , 30 , true , '2026-02-15 00:00:00' , '2026-06-01 00:00:00' , 5 , 2 , 1
+    4 , 'SQL para Analistas' , 'Consultas SQL desde básico hasta avanzado' , 1999.00 , 15 , true , '2026-01-20 00:00:00' , '2026-05-01 00:00:00' , 4 , 1 , 2
+    5 , 'Diseño de Bases de Datos' , 'Modelado relacional y normalización' , 2499.00 , 20 , true , '2026-01-20 00:00:00' , '2026-05-01 00:00:00' , 3 , 1 , 2
+    6 , 'Docker para Desarrolladores' , 'Contenedores, imágenes y Docker Compose' , 2999.00 , 20 , true , '2026-03-01 00:00:00' , '2026-06-01 00:00:00' , 4 , 2 , 4
+    7 , 'Kubernetes en Producción' , 'Orquestación de contenedores escalables' , 4499.00 , 30 , true , '2026-03-15 00:00:00' , '2026-06-01 00:00:00' , 5 , 3 , 4
+    8 , 'React Completo' , 'Frontend moderno con React, Hooks y Context API' , 3499.00 , 35 , true , '2026-02-01 00:00:00' , '2026-06-01 00:00:00' , 4 , 2 , 5
+    9 , 'Node.js y Express' , 'Backend con JavaScript usando Node.js' , 2999.00 , 25 , true , '2026-02-01 00:00:00' , '2026-05-15 00:00:00' , 3 , 2 , 5
+    10 , 'Machine Learning con Python' , 'Introducción práctica a ML con scikit-learn' , 4999.00 , 40 , true , '2026-03-01 00:00:00' , '2026-06-01 00:00:00' , 5 , 3 , 6
+    11 , 'Spring Security con JWT' , 'Autenticación y autorización en APIs' , 3999.00 , 20 , true , '2026-04-01 00:00:00' , '2026-06-01 00:00:00' , 4 , 3 , 7
+    12 , 'Arquitectura de Microservicios' , 'Patrones para sistemas distribuidos con Java' , 4999.00 , 30 , true , '2026-04-15 00:00:00' , '2026-06-01 00:00:00' , 5 , 3 , 8
+  }
+}
+
+table instructors_courses {
+  id_course int [ref: > courses.id]
+  id_instructor varchar(10) [ref: > instructors.id]
+
+  Records {
+    1 , 'INS-001'
+    2 , 'INS-001'
+    3 , 'INS-001'
+    12 , 'INS-001'
+    4 , 'INS-002'
+    5 , 'INS-002'
+    6 , 'INS-003'
+    7 , 'INS-003'
+    8 , 'INS-004'
+    9 , 'INS-004'
+    10 , 'INS-005'
+    11 , 'INS-006'
+  }
+}
+
+table modules {
+  id varchar(15) [primary key]
+  title varchar(100) unique
+  description text
+  position int 
+  duration int
+  active boolean
+  id_course int [ref: > courses.id]
+
+  Records {
+    'MOD-001' , 'Introducción a Java' , 'Historia, JDK, primer programa' , 1 , 300 , true , 1
+    'MOD-002' , 'Tipos de datos y operadores' , 'Variables, tipos primitivos, operadores' , 2 , 360 , true , 1
+    'MOD-003' , 'Estructuras de control' , 'if, switch, for, while' , 3 , 300 , true , 1
+    'MOD-004' , 'POO Básica' , 'Clases, objetos, herencia' , 4 , 480 , true , 1
+    'MOD-005' , 'Introducción a ORM' , 'Qué es ORM, historia, JPA vs Hibernate' , 1 , 240 , true , 2
+    'MOD-006' , 'Configuración y Entidades' , 'persistence.xml, @Entity, @Id, CRUD' , 2 , 300 , true , 2
+    'MOD-007' , 'Relaciones y Consultas' , 'OneToMany, ManyToMany, HQL' , 3 , 300 , true , 2
+    'MOD-008' , 'Validaciones y Buenas Prácticas' , 'Bean Validation, filtros, DAO' , 4 , 240 , true , 2
+    'MOD-009' , 'Intro a Spring Boot' , 'Spring Initializr, estructura, auto-config' , 1 , 300 , true , 3
+    'MOD-010' , 'Controllers y Endpoints' , '@RestController, @GetMapping, @PostMapping' , 2 , 360 , true , 3
+    'MOD-011' , 'Persistencia con Spring Data' , 'JpaRepository, consultas derivadas' , 3 , 360 , true , 3
+    'MOD-012' , 'Manejo de errores' , '@ControllerAdvice, @Valid' , 4 , 300 , true , 3
+    'MOD-013' , 'SELECT y WHERE' , 'Consultas básicas, filtrado' , 1 , 180 , true , 4
+    'MOD-014' , 'JOINs y Agregaciones' , 'INNER JOIN, LEFT JOIN, GROUP BY' , 2 , 240 , true , 4
+    'MOD-015' , 'Subconsultas y Vistas' , 'Subconsultas, CREATE VIEW' , 3 , 240 , true , 4
+    'MOD-016' , 'Modelado conceptual' , 'Entidades, atributos, relaciones' , 1 , 240 , true , 5
+    'MOD-017' , 'Normalización' , '1FN, 2FN, 3FN' , 2 , 300 , true , 5
+    'MOD-018' , 'Implementación SQL' , 'DDL, constraints, índices' , 3 , 300 , true , 5
+  }
+}
+
+table students {
+  id varchar(15) [primary key]
+  first_name varchar(100) 
+  last_name varchar(100)
+  email varchar(50)
+  birth_date date
+  country char(3)
+  city varchar(30)
+  state varchar(40)
+  active boolean
+
+  Records {
+    'STU-001' , 'Pedro' , 'López Ramírez' , 'pedro.lopez@email.com' , '1998-03-15' , 'MEX' , 'Ciudad de México' , 'CDMX' , true
+    'STU-002' , 'Sofía' , 'Martínez Ruiz' , 'sofia.martinez@email.com' , '1999-07-22' , 'MEX' , 'Guadalajara' , 'Jalisco' , true
+    'STU-003' , 'Diego' , 'García Flores' , 'diego.garcia@email.com' , '1997-11-08' , 'MEX' , 'Monterrey' , 'Nuevo León' , true
+    'STU-004' , 'Valentina' , 'Rodríguez Sánchez' , 'valentina.rod@email.com' , '2000-01-30' , 'MEX' , 'Puebla' , 'Puebla' , true
+    'STU-005' , 'Andrés' , 'Hernández Cruz' , 'andres.hdz@email.com' , '1996-09-14' , 'MEX' , 'Querétaro' , 'Querétaro' , true
+    'STU-006' , 'Camila' , 'Flores Torres' , 'camila.flores@email.com' , '2001-05-18' , 'MEX' , 'Tijuana' , 'Baja California' , true
+    'STU-007' , 'Mateo' , 'Sánchez Morales' , 'mateo.sanchez@email.com' , '1998-12-03' , 'MEX' , 'León' , 'Guanajuato' , true
+    'STU-008' , 'Isabella' , 'Cruz Mendoza' , 'isabella.cruz@email.com' , '1999-04-25' , 'MEX' , 'Mérida' , 'Yucatán' , true
+    'STU-009' , 'Sebastián' , 'Torres Vargas' , 'sebastian.t@email.com' , '1997-08-12' , 'MEX' , 'Ciudad de México' , 'CDMX' , true
+    'STU-010' , 'Renata' , 'Morales Jiménez' , 'renata.morales@email.com' , '2000-06-07' , 'MEX' , 'Guadalajara' , 'Jalisco' , true
+    'STU-011' , 'Emiliano' , 'Jiménez Castillo' , 'emiliano.j@email.com' , '1998-02-19' , 'COL' , 'Bogotá' , 'Cundinamarca' , true
+    'STU-012' , 'Lucía' , 'Vargas Díaz' , 'lucia.vargas@email.com' , '1999-10-31' , 'MEX' , 'Cancún' , 'Quintana Roo' , true
+    'STU-013' , 'Daniel' , 'Castillo Ruiz' , 'daniel.castillo@email.com' , '1996-07-04' , 'MEX' , 'Ciudad de México' , 'CDMX' , true
+    'STU-014' , 'Fernanda' , 'Mendoza López' , 'fernanda.m@email.com' , '2001-03-28' , 'ARG' , 'Buenos Aires' , 'Buenos Aires' , true
+    'STU-015' , 'Santiago' , 'Ruiz García' , 'santiago.ruiz@email.com' , '1997-01-15' , 'MEX' , 'Querétaro' , 'Querétaro' , true
+  }
+}
+
+table enrollments {
+  id int [primary key]
+  id_student varchar(15) [ref: > students.id]
+  id_course int [ref: > courses.id]
+  enrollment_date timestamp
+  grade decimal(4,2)
+  status enum("ENROLLED", "IN_PROGRESS", "COMPLETED", "DROPPED")
+  completion_date timestamp
+
+  Records {
+    1 , 'STU-001' , 1 , '2026-01-10 08:30:00' , 9.50 , 'COMPLETED' , '2026-03-15 14:00:00'
+    2 , 'STU-001' , 2 , '2026-03-20 09:00:00' , 8.00 , 'IN_PROGRESS' , null
+    3 , 'STU-001' , 3 , '2026-06-01 10:00:00' , null , 'ENROLLED' , null
+    4 , 'STU-002' , 1 , '2026-01-12 11:00:00' , 10.00 , 'COMPLETED' , '2026-03-10 16:00:00'
+    5 , 'STU-002' , 4 , '2026-02-01 09:30:00' , 9.00 , 'COMPLETED' , '2026-03-20 15:00:00'
+    6 , 'STU-002' , 2 , '2026-04-01 08:00:00' , 7.50 , 'IN_PROGRESS' , null
+    7 , 'STU-003' , 6 , '2026-02-15 10:00:00' , 8.50 , 'COMPLETED' , '2026-04-10 17:00:00'
+    8 , 'STU-003' , 7 , '2026-04-15 09:00:00' , null , 'IN_PROGRESS' , null
+    9 , 'STU-004' , 8 , '2026-01-20 08:00:00' , 9.00 , 'COMPLETED' , '2026-04-01 14:30:00'
+    10 , 'STU-004' , 9 , '2026-04-05 10:30:00' , 8.00 , 'IN_PROGRESS' , null
+    11 , 'STU-004' , 1 , '2026-05-01 09:00:00' , null , 'ENROLLED' , null
+    12 , 'STU-005' , 10 , '2026-02-01 11:00:00' , 7.00 , 'COMPLETED' , '2026-05-20 16:00:00'
+    13 , 'STU-005' , 4 , '2026-01-15 08:30:00' , 8.50 , 'COMPLETED' , '2026-03-01 15:00:00'
+    14 , 'STU-006' , 1 , '2026-01-18 09:00:00' , 8.00 , 'COMPLETED' , '2026-03-25 14:00:00'
+    15 , 'STU-006' , 11 , '2026-04-01 10:00:00' , null , 'IN_PROGRESS' , null
+    16 , 'STU-007' , 2 , '2026-03-01 08:00:00' , 9.00 , 'COMPLETED' , '2026-04-15 16:30:00'
+    17 , 'STU-007' , 3 , '2026-04-20 09:30:00' , 8.50 , 'IN_PROGRESS' , null
+    18 , 'STU-007' , 12 , '2026-07-01 10:00:00' , null , 'ENROLLED' , null
+    19 , 'STU-008' , 4 , '2026-02-10 08:00:00' , 9.50 , 'COMPLETED' , '2026-03-15 15:00:00'
+    20 , 'STU-008' , 5 , '2026-03-20 09:00:00' , 8.00 , 'IN_PROGRESS' , null
+    21 , 'STU-009' , 1 , '2026-01-25 10:00:00' , 7.50 , 'COMPLETED' , '2026-04-01 14:00:00'
+    22 , 'STU-009' , 2 , '2026-04-10 08:30:00' , null , 'IN_PROGRESS' , null
+    23 , 'STU-010' , 8 , '2026-02-05 09:00:00' , 9.00 , 'COMPLETED' , '2026-05-01 16:00:00'
+    24 , 'STU-010' , 6 , '2026-05-10 10:00:00' , null , 'ENROLLED' , null
+    25 , 'STU-011' , 3 , '2026-03-15 08:00:00' , 8.00 , 'IN_PROGRESS' , null
+    26 , 'STU-011' , 11 , '2026-06-01 09:30:00' , null , 'ENROLLED' , null
+    27 , 'STU-012' , 1 , '2026-02-01 10:00:00' , 9.00 , 'COMPLETED' , '2026-04-10 15:30:00'
+    28 , 'STU-012' , 4 , '2026-04-15 08:00:00' , null , 'IN_PROGRESS' , null
+    29 , 'STU-013' , 12 , '2026-03-01 09:00:00' , 8.50 , 'IN_PROGRESS' , null
+    30 , 'STU-013' , 6 , '2026-01-20 10:30:00' , 9.00 , 'COMPLETED' , '2026-03-15 14:00:00'
+  }
+}
