@@ -18,14 +18,14 @@ public class Main {
         // Step Get all courses
         List<Course> courses= service.findAllCourses();
         for (Course course : courses) {
-            System.out.println("Course: " + course.title() + ", Description: " + course.description() + ", Price: " + course.price());
+            System.out.println("Course: " + course.getTitle() + ", Description: " + course.getDescription() + ", Price: " + course.getPrice());
         }
 
         // Step Find a Course by ISBN
         Integer searchCourse = 1;
         Course foundCourse = service.findCourseById(searchCourse); // Assuming you have a method to find a course by ID
         if (foundCourse != null) {
-            System.out.println("Found Course: " + foundCourse.title() + ", ID: " + foundCourse.id() + ", Title : " + foundCourse.title());
+            System.out.println("Found Course: " + foundCourse.getTitle() + ", ID: " + foundCourse.getId() + ", Title : " + foundCourse.getTitle());
         } else {
             System.out.println("Course with ID " + searchCourse + " not found.");
         }

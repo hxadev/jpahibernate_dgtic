@@ -25,6 +25,6 @@ public class LearnHubService {
 
     public void insertCourse(Course course) {
         learnHubDao.insert(course);
-        System.out.println("Course inserted: " + course.title());
+        System.out.println("Course inserted: " + course.getTitle());
     }
 }

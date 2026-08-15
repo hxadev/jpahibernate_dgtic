@@ -7,6 +7,7 @@ import java.util.Properties;
 /**
  * Singleton  AppProperties
  */
+@Deprecated(forRemoval = true)
 public class AppProperties {
     private static AppProperties instance;
     private final Properties properties = new Properties();

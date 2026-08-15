@@ -5,6 +5,7 @@ import com.dgtic.unam.config.AppProperties;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+@Deprecated
 public class ConnectionUtils {
     public static Connection buildConnection() throws SQLException {
         AppProperties properties = AppProperties.getInstance();
