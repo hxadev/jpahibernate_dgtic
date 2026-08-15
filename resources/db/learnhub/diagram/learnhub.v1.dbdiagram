@@ -1,0 +1,192 @@
+{
+  "version": "2.0.0",
+  "darkMode": true,
+  "gridEnabling": true,
+  "currentViewName": null,
+  "defaultView": {
+    "detailLevel": "All",
+    "tablePositions": [
+      {
+        "name": "levels",
+        "schemaName": "public",
+        "x": 1.8567414290033355,
+        "y": 0
+      },
+      {
+        "name": "categories",
+        "schemaName": "public",
+        "x": 0,
+        "y": 216
+      },
+      {
+        "name": "instructors",
+        "schemaName": "public",
+        "x": -0.21208053691276696,
+        "y": 440
+      },
+      {
+        "name": "courses",
+        "schemaName": "public",
+        "x": 490.6601907611488,
+        "y": 16
+      },
+      {
+        "name": "instructors_courses",
+        "schemaName": "public",
+        "x": 472,
+        "y": 448
+      },
+      {
+        "name": "modules",
+        "schemaName": "public",
+        "x": 960,
+        "y": 0
+      },
+      {
+        "name": "students",
+        "schemaName": "public",
+        "x": 0,
+        "y": 760
+      },
+      {
+        "name": "enrollments",
+        "schemaName": "public",
+        "x": 856,
+        "y": 560
+      }
+    ],
+    "tableGroupCollapseStates": [],
+    "stickyNoteLayouts": [],
+    "referencePaths": [
+      {
+        "firstFieldNames": [
+          "id"
+        ],
+        "firstTableName": "levels",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "level_id"
+        ],
+        "secondTableName": "courses",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": [
+          {
+            "x": 380.6854547897443,
+            "y": 48
+          },
+          {
+            "x": 380.6854547897443,
+            "y": 352
+          }
+        ]
+      },
+      {
+        "firstFieldNames": [
+          "id"
+        ],
+        "firstTableName": "categories",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "category_id"
+        ],
+        "secondTableName": "courses",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id"
+        ],
+        "firstTableName": "courses",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_course"
+        ],
+        "secondTableName": "instructors_courses",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id"
+        ],
+        "firstTableName": "instructors",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_instructor"
+        ],
+        "secondTableName": "instructors_courses",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id"
+        ],
+        "firstTableName": "courses",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_course"
+        ],
+        "secondTableName": "modules",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": [
+          {
+            "x": 940,
+            "y": 64
+          }
+        ]
+      },
+      {
+        "firstFieldNames": [
+          "id"
+        ],
+        "firstTableName": "students",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_student"
+        ],
+        "secondTableName": "enrollments",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id"
+        ],
+        "firstTableName": "courses",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_course"
+        ],
+        "secondTableName": "enrollments",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": [
+          {
+            "x": 769.7753876756503,
+            "y": 64
+          },
+          {
+            "x": 769.7753876756503,
+            "y": 568
+          }
+        ]
+      }
+    ]
+  },
+  "views": {}
+}
